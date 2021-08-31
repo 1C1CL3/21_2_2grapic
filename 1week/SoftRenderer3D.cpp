@@ -60,9 +60,7 @@ void SoftRenderer::LoadScene3D()
 	goTop.GetTransform().SetScale(Vector3(250.f, 20.f, 250.f));
 	goTop.GetTransform().SetRotation(Rotator(0.f, 0.f, 0.f));
 	goTop.SetColor(LinearColor::Red);
-
 	
-
 	for (int i = 0; i < 4; i++)
 	{
 		GameObject& pillar = g.CreateNewGameObject(pillar_1 + std::to_string(i));
@@ -115,6 +113,9 @@ void SoftRenderer::Update3D(float InDeltaSeconds)
 	// 입력에 따른 카메라 트랜스폼의 변경
 	camera.GetTransform().AddYawRotation(-input.GetAxis(InputAxis::XAxis) * rotateSpeed * InDeltaSeconds);
 	camera.GetTransform().AddPitchRotation(-input.GetAxis(InputAxis::YAxis) * rotateSpeed * InDeltaSeconds);
+
+	camera.GetTransform().AddPosition(Vector3::UnitZ * input.GetAxis(InputAxis::ZAxis) * moveSpeed * InDeltaSeconds);
+	camera.GetTransform().AddPitchRotation(-input.GetAxis(InputAxis::WAxis) * rotateSpeed * InDeltaSeconds);
 }
 
 // 애니메이션 로직을 담당하는 함수
